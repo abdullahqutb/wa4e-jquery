@@ -31,7 +31,7 @@ require("connect.php");
 
     </div>
     <div>
-      <form id="form" method="POST">
+      <form id="form" method="GET">
         <table class="table" style="margin-top: 50px;">
           <tr>
             <th>First Name</th>
@@ -42,10 +42,9 @@ require("connect.php");
           <?php
           $result = $pdo->query('SELECT * FROM profile');
           while ($row = $result->fetch()) {
-            echo "<tr><td>" . $row['first_name'] . "</td><td>" . $row['headline'] . "</td>
-            <td><button formaction='view.php' onclick='viewRow(this.value)' value='" . $row['profile_id'] . "'>View</button></td>
-            <td><button formaction='delete.php' onclick='deleteRow()' value='asdf'>Delete</button></td>
-            <input type='hidden' value='" . $row['profile_id'] . "'>
+            echo "<tr><td><a href='view.php/?id=" .$row['profile_id'] . "'>" . $row['first_name'] . "</a></td><td>" . $row['headline'] . "</td>
+            <td><a class='btn btn-primary' href='edit.php/?id=" . $row['profile_id'] . "'>Edit</a></td>
+            <td><a class='btn btn-danger' href='delete.php/?id=" . $row['profile_id'] . " '>Delete</a></td>
             </tr>";
           }
         ?>
@@ -57,7 +56,7 @@ require("connect.php");
 
   <script>
   function viewRow(id) {
-    alert(id);
+    // alert(id);
     var form = document.getElementById('form');
     document.getElementById('selected_id').value = id;
   }
